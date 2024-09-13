@@ -1,5 +1,5 @@
 @extends('layout')
-
+//view for all recipes
 @section('content')
 
 @include('partials._hero')
