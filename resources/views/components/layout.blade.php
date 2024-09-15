@@ -12,6 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -40,10 +41,12 @@
     </nav>
 
     <main>
-      @yield('content')
+      {{$slot}}
     </main>
+    <footer class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center">
+      <a href="/recipes/create" class="absolute top-1/3 right-10 bg-black text-white py-2 px-5">Create Recipe</a>
+    </footer>
+
+    <x-message/>
   </body>
-  <footer class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center">
-    <a href="create.html" class="absolute top-1/3 right-10 bg-black text-white py-2 px-5">Create Recipe</a>
-  </footer>
 </html>

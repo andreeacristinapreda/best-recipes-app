@@ -16,8 +16,9 @@ class RecipeFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'tags' => 'good, yummy, new',
-            'instructions' => $this->faker->sentence(),
+            'short_description' => $this->faker->sentence(),
             'ingredients' => 'water, salt, bread',
+            'instructions' => $this->faker->sentence(),
             'duration' => $this->faker->numberBetween(10, 100),
         ];
     }
