@@ -21,6 +21,7 @@ class CreateRecipesTable extends Migration
             $table->string('ingredients');
             $table->longText('instructions');
             $table->integer('duration');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

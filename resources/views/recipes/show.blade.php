@@ -8,7 +8,7 @@
 <div class="mx-4">
   <x-card>
     <div class="flex flex-col items-center justify-center text-center">
-      <img class="w-48 mr-6 mb-6" src="{{asset('images/burger.jpg')}}" alt=""/>
+      <img class="w-48 mr-6 mb-6" src="{{$recipe->photo ? asset('storage/' . $recipe->photo) : asset('/images/burger.jpg')}}" alt=""/>
       <h3 class="text-2xl mb-2">{{$recipe->title}}</h3>
       <div class="text-xl font-bold mb-4">
         {{floor($recipe->duration/60) != 0 ? floor($recipe->duration/60) . ' hour(s)' : ''}}
@@ -26,6 +26,18 @@
         <div class="text-lg space-y-6">{{$recipe->instructions}}</div>
       </div>
     </div>
+  </x-card>
+
+  <x-card class="mt-4 p-2 space-x-6">
+    <a href="/recipes/{{$recipe->id}}/edit">
+      <i class="fa-solid fa-pencil"></i> Edit
+    </a>
+
+    <form method="POST" action="/recipes/{{$recipe->id}}">
+      @csrf
+      @method('DELETE')
+      <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
+    </form>
   </x-card>
 </div>
 
