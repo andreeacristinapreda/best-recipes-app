@@ -9,9 +9,12 @@
   <h1 class="text-6xl font-bold uppercase text-white">Best<span class="text-black">Recipes</span></h1>
   <p class="text-2xl text-gray-200 font-bold my-4">Find or post delicious recipes</p>
   <div>
-    <a href="register.html" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">
+    @auth
+    @else
+    <a href="/register" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">
       Sign Up to Post your own Recipe
     </a>
+    @endauth
   </div>
 </div>
 </section>

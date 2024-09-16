@@ -22,6 +22,7 @@ class CreateRecipesTable extends Migration
             $table->longText('instructions');
             $table->integer('duration');
             $table->string('photo')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

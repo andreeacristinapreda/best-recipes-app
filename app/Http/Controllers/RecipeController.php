@@ -41,6 +41,8 @@ class RecipeController extends Controller
             $formFields['photo'] = $request->file('photo')->store('photoes', 'public');
         }
 
+        $formFields['user_id'] = auth()->id();
+
         Recipe::create($formFields);
 
         return redirect('/')->with('message', 'Recipe added successfully!');
@@ -55,6 +57,11 @@ class RecipeController extends Controller
 
     // update
     public function update(Request $request, Recipe $recipe) {
+
+        if($recipe->user_id != auth()->id()) {
+          abort(403, 'Unauthorized!');
+        }
+
         $formFields = $request->validate([
             //field => ['required', Rule::unique('table-name', 'field-name')],
             'title' => 'required',
@@ -77,7 +84,15 @@ class RecipeController extends Controller
 
     // delete
     public function destroy(Recipe $recipe) {
+        if($recipe->user_id != auth()->id()) {
+          abort(403, 'Unauthorized!');
+        }
         $recipe->delete();
         return redirect('/')->with('message', 'Recipe deleted successfully!');
+    }
+
+    // manage
+    public function manage() {
+      return view('recipes.manage', ['recipes' => auth()->user()->recipes()->get()]);
     }
 }
