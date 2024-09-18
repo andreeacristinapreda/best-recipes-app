@@ -18,3 +18,40 @@
 </div>
 
 </x-layout>
+
+@auth
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    document.querySelectorAll('.favorite-button').forEach(function(button) {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        var recipeId = this.getAttribute('data-recipe-id');
+        var button = this;
+
+        fetch('/recipes/' + recipeId + '/toggle-favorite', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': csrfToken
+          },
+          body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === 'Recipe added to favorites') {
+              button.querySelector('.favorite-icon').innerHTML = '<i class="fas fa-heart"></i>'; //filled heart
+          } else if (data.message === 'Recipe removed from favorites') {
+              button.querySelector('.favorite-icon').innerHTML = '<i class="far fa-heart"></i>'; //empty
+          }
+        })
+        .catch(error => {
+          console.error('Error toggling favorite:', error);
+        });
+      });
+  });
+  });
+  </script>
+@endauth

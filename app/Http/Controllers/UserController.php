@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -61,4 +63,5 @@ class UserController extends Controller
 
     return back()->withErrors(['email' => 'Invalid email or password!'])->onlyInput('email');
   }
+
 }

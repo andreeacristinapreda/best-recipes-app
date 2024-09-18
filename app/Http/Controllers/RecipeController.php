@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class RecipeController extends Controller
 {
@@ -95,4 +97,24 @@ class RecipeController extends Controller
     public function manage() {
       return view('recipes.manage', ['recipes' => auth()->user()->recipes()->get()]);
     }
+
+    public function toggleFavorite(Recipe $recipe)
+    {
+      try {
+        $user = auth()->user();
+
+        // check if already in the user's favorites
+        if ($user->favorites()->where('recipe_id', $recipe->id)->exists()) {
+           $user->favorites()->detach($recipe->id);
+           return response()->json(['message' => 'Recipe removed from favorites']);
+        } else {
+           $user->favorites()->attach($recipe->id);
+           return response()->json(['message' => 'Recipe added to favorites']);
+        }
+     } catch (\Exception $e) {
+        Log::error('Error toggling favorite: ' . $e->getMessage());
+        return response()->json(['message' => 'An error occurred'], 500);
+     }
+    }
+
 }

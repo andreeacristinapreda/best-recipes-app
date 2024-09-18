@@ -24,4 +24,9 @@ class Recipe extends Model
     public function user () {
       return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function favoritedBy()
+    {
+      return $this->belongsToMany(User::class, 'favorite_recipe', 'recipe_id', 'user_id')->withTimestamps();
+    }
 }

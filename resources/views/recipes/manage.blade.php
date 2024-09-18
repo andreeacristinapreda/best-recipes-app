@@ -1,5 +1,5 @@
 <x-layout>
-  <x-card class="p-10 m-10">
+  <x-card class="p-10 m-4 w-full md:w-1/2 lg:w-1/3 mx-auto">
     <header>
       <h1 class="text-3xl text-center font-bold my-6 uppercase">
         Manage Recipes
@@ -11,6 +11,11 @@
         @unless($recipes->isEmpty())
           @foreach($recipes as $recipe)
           <tr class="border-gray-300">
+            <td class="px-4 py-8 border-t border-b border-gray-300">
+              <img class="w-24 h-auto mr-6 md:block rounded" 
+                src="{{$recipe->photo ? asset('storage/' . $recipe->photo) : asset('/images/logo.jpg')}}" alt=""
+              />
+            </td>
             <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
               <a href="/recipes/{{$recipe->id}}">{{$recipe->title}}</a>
             </td>
