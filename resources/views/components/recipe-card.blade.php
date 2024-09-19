@@ -1,7 +1,9 @@
 @props(['recipe'])
 <x-card class="p-10 recipe-item">
   <div class="flex">
-    <img class="hidden w-48 mr-6 md:block" src="{{$recipe->photo ? asset('storage/' . $recipe->photo) : asset('/images/logo.jpg')}}" alt=""/>
+    <a href="/recipes/{{$recipe->id}}">
+      <img class="hidden w-48 mr-6 md:block rounded" src="{{$recipe->photo ? asset('storage/' . $recipe->photo) : asset('/images/logo.jpg')}}" alt=""/>
+    </a>
     <div>
       <h3 class="text-2xl">
         <a href="/recipes/{{$recipe->id}}">{{$recipe->title}}</a>
@@ -20,6 +22,16 @@
       <div class="text-lg mt-4">
         <p>{{$recipe->short_description}}</p>
       </div>
+
+      @auth
+      @if(auth()->user()->id == $recipe->user_id)
+      <span>
+        <a href="/recipes/{{$recipe->id}}/edit" class="cursor-pointer edit-icon">
+          <i class="fas fa-pencil-alt"></i>
+        </a>
+      </span>
+      @endif
+      @endauth
 
       @auth
       <button class="favorite-button" 

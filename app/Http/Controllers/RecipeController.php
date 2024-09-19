@@ -10,7 +10,8 @@ class RecipeController extends Controller
 {
     public function index() {
         return view('recipes.index', [
-         'recipes' => Recipe::latest()->filter(request(['tag', 'search']))->paginate(6)
+         'recipes' => Recipe::latest()->filter(request(['tag', 'search', 'cathegory']))
+           ->paginate(6)->withQueryString()
         ]);
     }
 

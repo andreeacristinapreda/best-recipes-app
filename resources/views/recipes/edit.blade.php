@@ -119,9 +119,9 @@
 
       <div class="mb-6">
         <button
-          class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
+          class="bg-green-500 text-white rounded py-2 px-4 hover:bg-green-600"
         >
-          Edit Recipe
+          Save
         </button>
 
         <a href="/" class="text-black ml-4"> Back </a>

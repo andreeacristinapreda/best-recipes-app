@@ -38,7 +38,7 @@
           <span class="font-bolt uppercase"> Welcome {{auth()->user()->name}}!</span>
         </li>
         <li>
-          <a href="/recipes/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i> Manage your recipes</a>
+          <a href="/recipes/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i> Manage Recipes</a>
         </li>
         <li>
           <form class="inline" method="POST" action="/logout">

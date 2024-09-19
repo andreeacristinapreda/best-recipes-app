@@ -7,6 +7,23 @@
 </a>
 <div class="mx-10">
   <x-card class="p-10 m-4 w-full md:w-1/2 lg:w-1/3 mx-auto">
+    @auth
+      @if(auth()->user()->id == $recipe->user_id)
+        <div class="flex justify-end">
+          <a href="/recipes/{{$recipe->id}}/edit" class="cursor-pointer edit-icon edit-icon-singlepg">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+
+          <form method="POST" action="/recipes/{{$recipe->id}}" onsubmit="return confirmDelete();">
+            @csrf
+            @method('DELETE')
+            <button type="submit">
+              <i class="fa-solid fa-trash-can delete-icon-singlepg"></i>
+            </button>
+          </form>
+      </div>
+      @endif
+    @endauth
     <div class="flex flex-col items-center justify-center text-center">
       <img class="w-48 mb-2 rounded" src="{{$recipe->photo ? asset('storage/' . $recipe->photo) : asset('/images/logo.jpg')}}" alt=""/>
       <h3 class="text-2xl mb-2">{{$recipe->title}}</h3>
@@ -57,7 +74,7 @@
 
 @auth
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
   document.querySelectorAll('.favorite-button').forEach(function(button) {
@@ -89,5 +106,10 @@
     });
  });
 });
+
+function confirmDelete() {
+  return confirm('Are you sure you want to delete this recipe?');
+}
+
 </script>
 @endauth

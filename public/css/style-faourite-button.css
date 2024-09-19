@@ -27,3 +27,38 @@
 .favorite-icon i {
   font-size: 28px;
 }
+
+.edit-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 80px;
+  font-size: 28px;
+  color: green;
+  transition: color 0.3s ease;
+}
+
+.edit-icon:hover {
+  color: darkgreen;
+}
+
+.edit-icon-singlepg {
+  position: relative;
+  top: 10px;
+  right: 50px;
+}
+
+.delete-icon-singlepg {
+  position: relative;
+  top: 14px;
+  right: 20px;
+  font-size: 28px;
+  color: rgb(211, 42, 42);
+  transition: color 0.3s ease;
+}
+
+.delete-icon-singlepg:hover {
+  color: rgb(243, 2, 2);
+}

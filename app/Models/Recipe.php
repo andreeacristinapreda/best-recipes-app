@@ -14,11 +14,26 @@ class Recipe extends Model
             $query->where('tags', 'like', '%' . request('tag') . '%');
         }
 
+        if($filters['cathegory'] ?? false) {
+
+          if($filters['cathegory'] == 'my-recipes') {
+           $query->where('user_id', auth()->user()->id);
+          }
+
+          if($filters['cathegory'] == 'favorites') {
+            $query->join('favorite_recipe', 'recipes.id', '=', 'favorite_recipe.recipe_id')
+              ->where('favorite_recipe.user_id', auth()->user()->id)
+              ->select('recipes.*');
+          }
+        }
+
         if($filters['search'] ?? false){
             $query->where('title', 'like', '%' . request('search') . '%')
               ->orWhere('ingredients', 'like', '%' . request('search') . '%')
               ;
         }
+
+        return $query->distinct();
     }
 
     public function user () {

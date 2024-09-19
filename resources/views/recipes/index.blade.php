@@ -3,6 +3,8 @@
 @include('partials._hero')
 @include('partials._search')
 
+<x-cathegories/>
+
 <div class="lg:grid lg:grid-cols-2 gap-4 space-y-4 md:space-y-0 mx-4">
   @if(count($recipes) == 0)
     <p>No recipes here</p>
@@ -26,6 +28,8 @@
 
     document.querySelectorAll('.favorite-button').forEach(function(button) {
       button.addEventListener('click', function (e) {
+
+        //if (e.target.closest('.pencil-edit')) return; // Skip if pencil edit was clicked
         e.preventDefault();
 
         var recipeId = this.getAttribute('data-recipe-id');
