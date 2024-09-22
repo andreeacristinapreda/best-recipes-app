@@ -17,18 +17,18 @@
               />
             </td>
             <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
-              <a href="/recipes/{{$recipe->id}}">{{$recipe->title}}</a>
+              <a href="/recipes/{{$recipe->id}}?{{http_build_query(request()->query())}}">{{$recipe->title}}</a>
             </td>
             <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
-              <a href="/recipes/{{$recipe->id}}/edit" class="text-blue-400 px-6 py-2 rounded-xl">
+              <a href="/recipes/{{$recipe->id}}/edit?{{http_build_query(request()->query())}}" class="text-blue-400 px-6 py-2 rounded-xl">
                 <i class="fa-solid fa-pen-to-square"></i> Edit
               </a>
             </td>
             <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
-              <form method="POST" action="/recipes/{{$recipe->id}}">
+              <form method="POST" action="/recipes/{{$recipe->id}}?{{http_build_query(request()->query())}}" onsubmit="return confirmDelete();">
                 @csrf
                 @method('DELETE')
-                <button class="text-red-600">
+                <button class="text-red-600" type="submit">
                   <i class="fa-solid fa-trash-can"></i> Delete
                 </button>
               </form>
@@ -46,3 +46,9 @@
     </table>
   </x-card>
 </x-layout>
+
+<script>
+function confirmDelete() {
+  return confirm('Are you sure you want to delete this recipe?');
+}
+</script>

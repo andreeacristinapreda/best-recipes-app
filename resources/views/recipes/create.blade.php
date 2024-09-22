@@ -5,7 +5,7 @@
       <p class="mb-4">Create your own delicious recipe</p>
     </header>
 
-    <form method="POST" action="/recipes" enctype="multipart/form-data">
+    <form method="POST" action="/recipes?{{http_build_query(request()->query())}}" enctype="multipart/form-data">
       @csrf
       <div class="mb-6">
         <label for="title" class="inline-block text-lg mb-2"
@@ -121,7 +121,7 @@
           Create Recipe
         </button>
 
-        <a href="/" class="text-black ml-4"> Back </a>
+        <a href="/?{{http_build_query(request()->query())}}" class="text-black ml-4"> Back </a>
       </div>
     </form>
   </x-card>

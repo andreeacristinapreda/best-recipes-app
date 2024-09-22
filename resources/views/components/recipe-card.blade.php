@@ -1,12 +1,12 @@
 @props(['recipe'])
 <x-card class="p-10 recipe-item">
   <div class="flex">
-    <a href="/recipes/{{$recipe->id}}">
+    <a href="/recipes/{{$recipe->id}}?{{http_build_query(request()->query())}}">
       <img class="hidden w-48 mr-6 md:block rounded" src="{{$recipe->photo ? asset('storage/' . $recipe->photo) : asset('/images/logo.jpg')}}" alt=""/>
     </a>
     <div>
       <h3 class="text-2xl">
-        <a href="/recipes/{{$recipe->id}}">{{$recipe->title}}</a>
+        <a href="/recipes/{{$recipe->id}}?{{http_build_query(request()->query())}}">{{$recipe->title}}</a>
       </h3>
       <div class="text-xl font-bold my-4">
         {{floor($recipe->duration/60) != 0 ? floor($recipe->duration/60) . ' hour(s)' : ''}}
@@ -26,7 +26,7 @@
       @auth
       @if(auth()->user()->id == $recipe->user_id)
       <span>
-        <a href="/recipes/{{$recipe->id}}/edit" class="cursor-pointer edit-icon">
+        <a href="/recipes/{{$recipe->id}}/edit?{{http_build_query(request()->query())}}" class="cursor-pointer edit-icon">
           <i class="fas fa-pencil-alt"></i>
         </a>
       </span>
@@ -47,7 +47,7 @@
         </span>
       </button>
       @else
-        <a href="/register" class="favorite-button"><i class="far fa-heart"></i></a>
+        <a href="/register?{{http_build_query(request()->query())}}" class="favorite-button"><i class="far fa-heart"></i></a>
       @endauth
 
     </div>

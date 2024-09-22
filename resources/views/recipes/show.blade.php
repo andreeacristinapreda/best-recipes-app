@@ -2,7 +2,7 @@
 
 @include('partials._search')
 
-<a href="/" class="inline-block text-black ml-4 mb-4">
+<a href="/?{{http_build_query(request()->query())}}" class="inline-block text-black ml-4 mb-4">
   <i class="fa-solid fa-arrow-left"></i> Back
 </a>
 <div class="mx-10">
@@ -10,11 +10,11 @@
     @auth
       @if(auth()->user()->id == $recipe->user_id)
         <div class="flex justify-end">
-          <a href="/recipes/{{$recipe->id}}/edit" class="cursor-pointer edit-icon edit-icon-singlepg">
+          <a href="/recipes/{{$recipe->id}}/edit?{{http_build_query(request()->query())}}" class="cursor-pointer edit-icon edit-icon-singlepg">
             <i class="fas fa-pencil-alt"></i>
           </a>
 
-          <form method="POST" action="/recipes/{{$recipe->id}}" onsubmit="return confirmDelete();">
+          <form method="POST" action="/recipes/{{$recipe->id}}?{{http_build_query(request()->query())}}" onsubmit="return confirmDelete();">
             @csrf
             @method('DELETE')
             <button type="submit">
@@ -42,7 +42,7 @@
         </span>
       </button>
       @else
-        <a href="/register" class="favorite-button favorite-button-singlepg"><i class="far fa-heart"></i></a>
+        <a href="/register?{{http_build_query(request()->query())}}" class="favorite-button favorite-button-singlepg"><i class="far fa-heart"></i></a>
       @endauth
 
       <div class="text-xl font-bold mb-4">

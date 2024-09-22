@@ -1,10 +1,10 @@
-<nav class="bg-gray-50 dark:bg-gray-700 mb-6">
-  <div class="max-w-screen-xl px-4 py-3 mx-2">
+<nav class="bg-white">
+  <div class="max-w-screen-xl px-2 py-3 mx-2">
     <div class="flex items-start justify-start">
       <ul class="flex flex-row font-large mt-0 space-x-4 rtl:space-x-reverse text-lg">
         <li>
           <a href="{{url()->current()}}/?{{http_build_query(request()->except('cathegory'))}}"
-            class="text-gray-900 dark:text-white border border-gray-300 hover:border-blue-500 hover:text-blue-500 px-4 py-2 rounded-lg transition-colors duration-200 ease-in-out {{ request('cathegory') ? '' : 'bg-blue-500 text-white' }}" aria-current="page">
+            class="{{ request('cathegory') ? 'bg-white text-gray-400' : 'bg-laravel text-black font-bold' }} relative px-4 py-2 border border-gray-300 hover:border-yellow-400 hover:text-black rounded-t-lg transition-all duration-200 ease-in-out" aria-current="page">
             All
           </a>
         </li>
@@ -15,7 +15,7 @@
             @else
               href="/register"
             @endauth
-            class="text-gray-900 dark:text-white border border-gray-300 hover:border-blue-500 hover:text-blue-500 px-4 py-2 rounded-lg transition-colors duration-200 ease-in-out {{ request('cathegory') == 'favorites' ? 'bg-blue-500 text-white' : '' }}">
+            class="{{ request('cathegory') == 'favorites' ? 'bg-laravel text-black font-bold' : 'bg-white text-gray-400' }} relative px-4 py-2 border border-gray-300 hover:border-yellow-400 hover:text-black rounded-t-lg transition-all duration-200 ease-in-out">
             Favorite
           </a>
         </li>
@@ -26,7 +26,7 @@
             @else
               href="/register"
             @endauth
-            class="text-gray-900 dark:text-white border border-gray-300 hover:border-blue-500 hover:text-blue-500 px-4 py-2 rounded-lg transition-colors duration-200 ease-in-out {{ request('cathegory') == 'my-recipes' ? 'bg-blue-500 text-white' : '' }}">
+            class="{{ request('cathegory') == 'my-recipes' ? 'bg-laravel text-black font-bold' : 'bg-white text-gray-400' }} relative px-4 py-2 border border-gray-300 hover:border-yellow-400 hover:text-black rounded-t-lg transition-all duration-200 ease-in-out">
             My Recipes
           </a>
         </li>

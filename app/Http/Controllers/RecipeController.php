@@ -48,7 +48,8 @@ class RecipeController extends Controller
 
         Recipe::create($formFields);
 
-        return redirect('/')->with('message', 'Recipe added successfully!');
+        return redirect('/?' . http_build_query(request()->query()))->with('message', 'Recipe added successfully!');
+
     }
 
     // display edit form
@@ -91,7 +92,7 @@ class RecipeController extends Controller
           abort(403, 'Unauthorized!');
         }
         $recipe->delete();
-        return redirect('/')->with('message', 'Recipe deleted successfully!');
+        return redirect('/?' . http_build_query(request()->query()))->with('message', 'Recipe deleted successfully!');
     }
 
     // manage

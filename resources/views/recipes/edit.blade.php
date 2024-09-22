@@ -5,7 +5,7 @@
       <p class="mb-4">Edit {{$recipe->title}}</p>
     </header>
 
-    <form method="POST" action="/recipes/{{$recipe->id}}" enctype="multipart/form-data">
+    <form method="POST" action="/recipes/{{$recipe->id}}?{{http_build_query(request()->query())}}" enctype="multipart/form-data">
       @csrf
       @method('PUT')
       <div class="mb-6">
@@ -124,7 +124,7 @@
           Save
         </button>
 
-        <a href="/" class="text-black ml-4"> Back </a>
+        <a href="/?{{http_build_query(request()->query())}}" class="text-black ml-4"> Back </a>
       </div>
     </form>
   </x-card>

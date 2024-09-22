@@ -7,7 +7,7 @@
       <p class="mb-4">Log into account</p>
     </header>
 
-    <form method="POST" action="/users/authenticate">
+    <form method="POST" action="/users/authenticate?{{http_build_query(request()->query())}}">
       @csrf
 
       <div class="mb-6">
@@ -32,7 +32,7 @@
 
       <div class="mt-8">
         <p>Don't have an account?
-          <a href="/register" class="text-laravel">Register</a>
+          <a href="/register?{{http_build_query(request()->query())}}" class="text-laravel">Register</a>
         </p>
       </div>
     </form>
