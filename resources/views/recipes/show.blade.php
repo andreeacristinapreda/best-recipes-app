@@ -18,7 +18,7 @@
             @csrf
             @method('DELETE')
             <button type="submit">
-              <i class="fa-solid fa-trash-can delete-icon-singlepg"></i>
+            <i class="fa-solid fa-trash-can delete-icon-singlepg"></i>
             </button>
           </form>
       </div>
@@ -43,6 +43,21 @@
       </button>
       @else
         <a href="/register?{{http_build_query(request()->query())}}" class="favorite-button favorite-button-singlepg"><i class="far fa-heart"></i></a>
+      @endauth
+
+      {{-- star rating --}}
+      @auth
+      <form id="rating-form" action="{{ route('recipes.rate', ['recipe' => $recipe->id]) }}" method="POST">
+        @csrf
+        <div class="star-rating">
+          <input type="hidden" name="rating" id="rating-value" value="{{round($averageRating)}}">
+            <i class="fas fa-star" data-value="1"></i>
+            <i class="fas fa-star" data-value="2"></i>
+            <i class="fas fa-star" data-value="3"></i>
+            <i class="fas fa-star" data-value="4"></i>
+            <i class="fas fa-star" data-value="5"></i>
+        </div>
+      </form>
       @endauth
 
       <div class="text-xl font-bold mb-4">
@@ -74,6 +89,8 @@
 
 @auth
 <script>
+
+// favorite icon
 document.addEventListener('DOMContentLoaded', function() {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -107,9 +124,45 @@ document.addEventListener('DOMContentLoaded', function() {
  });
 });
 
+// delete confirmation
 function confirmDelete() {
   return confirm('Are you sure you want to delete this recipe?');
 }
 
+// star rating
+document.addEventListener('DOMContentLoaded', function() {
+  const stars = document.querySelectorAll('.star-rating i');
+  const form = document.getElementById('rating-form');
+  const ratingValue = document.getElementById('rating-value');
+  const initialRating = ratingValue.value;
+
+  function highlightStars(rating) {
+    stars.forEach(star => {
+      if (star.dataset.value <= rating) {
+        star.classList.add('filled');
+      } else {
+        star.classList.remove('filled');
+      }
+    });
+  }
+
+  // initial rating display
+  highlightStars(initialRating);
+
+  stars.forEach(star => {
+    star.addEventListener('mouseover', function() {
+      highlightStars(this.dataset.value);
+    });
+
+    star.addEventListener('click', function() {
+      ratingValue.value = this.dataset.value;
+      form.submit();
+    });
+  });
+
+  document.querySelector('.star-rating').addEventListener('mouseleave', function() {
+      highlightStars(ratingValue.value);
+  });
+});
 </script>
 @endauth

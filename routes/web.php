@@ -32,6 +32,9 @@ Route::get('/recipes/manage', [RecipeController::class, 'manage'])->middleware('
 // Toggle favourite icon on recipes
 Route::post('/recipes/{recipe}/toggle-favorite', [RecipeController::class, 'toggleFavorite'])->middleware('auth');
 
+// Rate recipes
+Route::post('/recipes/{recipe}/rate', [RecipeController::class, 'rate'])->name('recipes.rate')->middleware('auth');
+
 // display one recipie
 // keep after the other /recipe routes
 Route::get('/recipes/{recipe}', [RecipeController::class, 'show']);

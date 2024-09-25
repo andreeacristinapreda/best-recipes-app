@@ -17,9 +17,14 @@ class RecipeController extends Controller
 
     // only one recipe
     public function show(Recipe $recipe) {
-        return view('recipes.show', [
-          'recipe' => $recipe
-        ]);
+
+      // average rating
+      $averageRating = floor($recipe->ratings()->avg('rating')) ?? 0;
+
+      return view('recipes.show', [
+        'recipe' => $recipe,
+        'averageRating' => $averageRating
+      ]);
     }
 
     // add form
@@ -119,4 +124,27 @@ class RecipeController extends Controller
      }
     }
 
+    public function rate(Request $request, $recipeId)
+    {
+      $request->validate([
+        'rating' => 'required|integer|min:0|max:5',
+      ]);
+
+      $user = auth()->user();
+
+      // check if rating already exists
+      $rating = \App\Models\UserRecipeRating::where('user_id', $user->id)->where('recipe_id', $recipeId)->first();
+      
+      if ($rating) {
+        $rating->update(['rating' => $request->rating]);
+      } else {
+        \App\Models\UserRecipeRating::create([
+          'user_id' => $user->id,
+          'recipe_id' => $recipeId,
+          'rating' => $request->rating,
+        ]);
+      }
+
+      return redirect()->back();
+    }
 }
